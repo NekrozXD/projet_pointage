@@ -15,6 +15,7 @@ const WorkhourForm = () => {
     const [selectedDays, setSelectedDays] = useState([]);
     const [showWorkhourLineInputs, setShowWorkhourLineInputs] = useState(false);
     const [createdWorkhour, setCreatedWorkhour] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);  
 
     const handleInputChange = (e) => {
         setWorkhourData({ ...workhourData, [e.target.name]: e.target.value });
@@ -36,7 +37,7 @@ const WorkhourForm = () => {
 
             setShowWorkhourLineInputs(true);
 
-            alert('Workhour created successfully!');
+            toast.success('workhour created succesfully');
         } catch (error) {
             console.error('Error creating workhour:', error);
             alert('An error occurred while creating workhour.');
@@ -49,7 +50,7 @@ const WorkhourForm = () => {
                 alert('Please create a workhour first.');
                 return;
             }
-    
+            setIsLoading(true);
             for (const day of selectedDays) {
                 const checkin_am = workhourData[`checkin_am_${day}`];
                 const checkout_am = workhourData[`checkout_am_${day}`];
@@ -90,10 +91,12 @@ const WorkhourForm = () => {
         existingWorkhourData.total_hour = totalHours;
         await axios.put(`http://localhost:8000/api/workhours/${createdWorkhour}`, existingWorkhourData);
 
-        toast.info('workhour lines created succesfully');
-        } catch (error) {
+        
+        }  catch (error) {
             console.error('Error creating workhourlines:', error);
             alert('An error occurred while creating workhourlines.');
+        } finally {
+            setIsLoading(false); // Set loading back to false after request completes
         }
         setCreatedWorkhour(null);
         setSelectedDays([]);
@@ -102,6 +105,12 @@ const WorkhourForm = () => {
             total_hour: '1',
             delay_tolerance: ''
         });
+        Swal.fire({
+            title: "YA MAANN!",
+            text: "WORKHOUR created succesfully les BRADA!!",
+            icon: "success"
+          });
+        toast.info('workhour lines created succesfully');
     };
     
     const calculateTotalMinutes = (day) => {
@@ -221,6 +230,8 @@ const WorkhourForm = () => {
                     <Button onClick={handleCreateWorkhourLines}>Create Workhourlines</Button>
                 </>
             )}
+             {isLoading && 
+             <div className="spinner-border" role="status" style={{position:'absolute', left:'50%', zIndex:'10',backgroundColor:'rgb(0,0,0,0.5)'}}><span className="visually-hidden">Loading...</span></div> }
             <ToastContainer />
         </Container>
     );

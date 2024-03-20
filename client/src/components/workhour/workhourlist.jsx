@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card,CardHeader, Table } from 'react-bootstrap';
+import { Card,CardHeader, Row, Table,Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const WorkhourMapping = () => {
     const [data, setData] = useState({ workhours: [], workhourlines: [] });
@@ -28,9 +30,11 @@ const WorkhourMapping = () => {
                  
                 <div key={workhour.id}>
                    <Card className='mt-5'>
-                <CardHeader className='bg-success text-light'> <h4>{workhour.nom}</h4>
-                    <h4>total hour: {workhour.total_hour} hours </h4></CardHeader>
-                    <Table striped bordered hover>
+                <CardHeader className='text-light' style={{backgroundColor:'#50b64a'}}> <h4>{workhour.nom}</h4>
+                    <h4>total hour: {workhour.total_hour} hours </h4>
+                    <h5>delay Tolerance: {workhour.delay_tolerance} minutes</h5>
+                    </CardHeader>
+                    <Table striped bordered hover style={{textAlign:'center'}}>
                         <thead>
                             <tr>
                                 <th>Day</th>
@@ -38,6 +42,7 @@ const WorkhourMapping = () => {
                                 <th>Check-out AM</th>
                                 <th>Check-in PM</th>
                                 <th>Check-out PM</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,6 +55,11 @@ const WorkhourMapping = () => {
                                         <td>{line.checkout_am}</td>
                                         <td>{line.checkin_pm}</td>
                                         <td>{line.checkout_pm}</td>
+                                        <td className='col-md-1'>
+                                            <Button style={{width:'50px'}} className='btn btn-success'><FontAwesomeIcon icon={faEdit} /></Button>
+                                            <span>&nbsp;</span>
+                                            <Button style={{width:'50px'}} className='btn btn-danger'><FontAwesomeIcon icon={faTrash} /></Button>
+                                       </td>
                                     </tr>
                                 ))}
                         </tbody>

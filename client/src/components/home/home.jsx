@@ -56,11 +56,12 @@ export const Home = () => {
                 xs={2}
                 className="sidebar"
                 style={{
-                  backgroundColor: "#d9d9d9",
+                  backgroundColor: "#50b64a",
                   minHeight: "90vh",
-                  marginTop: "25px",
+                  marginTop: "10px",
                   borderRadius: "20px",
-                  position: "relative"
+                  position: "relative",
+                  width:'250px'
                 }}
               >
                 <br></br>
@@ -69,60 +70,66 @@ export const Home = () => {
                 style={{
                     backgroundColor: selected === 0 ? '#ececec' : 'inherit',
                     padding: selected === 0 ? '15px' : '10px',
-                    marginRight: selected === 0 ? '-20px' : '0px'
+                    marginRight: selected === 0 ? '-20px' : '0px',
+                    color: selected === 0? 'black' : 'white'
                 }}
             >
-                <FontAwesomeIcon icon={faTachometer} style={{ color: "black" }} /> Dashboard
+                <FontAwesomeIcon icon={faTachometer} style={{ color: "black" ,color: selected === 0? 'black' : 'white'}} /> Dashboard
             </div>
             <div
                 onClick={() => handleClick(1)}
                 style={{
                     backgroundColor: selected === 1 ? '#ececec' : 'inherit',
                     padding: selected === 1 ? '15px' : '10px',
-                    marginRight: selected === 1 ? '-20px' : '0px'
+                    marginRight: selected === 1 ? '-20px' : '0px',
+                    color: selected === 1? 'black' : 'white'
                 }}
             >
-                <FontAwesomeIcon icon={faBuilding} style={{ color: "black" }} /> Societe
+                <FontAwesomeIcon icon={faBuilding} style={{ color: "black",color: selected === 1? 'black' : 'white' }} /> Societe
             </div>
             <div
                 onClick={() => handleClick(2)}
                 style={{
                     backgroundColor: selected === 2 ? '#ececec' : 'inherit',
                     padding: selected === 2 ? '15px' : '10px',
-                    marginRight: selected === 2 ? '-20px' : '0px'
+                    marginRight: selected === 2 ? '-20px' : '0px',
+                    color: selected === 2? 'black' : 'white'
                 }}
             >
-                <FontAwesomeIcon icon={faUser} style={{ color: "black" }} /> Utilisateur
+                <FontAwesomeIcon icon={faUser} style={{ color: "black" ,color: selected === 2 ? 'black' : 'white'  }} /> Utilisateur
             </div>
             <div
                 onClick={() => handleClick(3)}
                 style={{
                     backgroundColor: selected === 3 ? '#ececec' : 'inherit',
                     padding: selected === 3 ? '15px' : '10px',
-                    marginRight: selected === 3 ? '-20px' : '0px'
+                    marginRight: selected === 3 ? '-20px' : '0px',
+                    color: selected === 3? 'black' : 'white'
                 }}
             >
-                <FontAwesomeIcon icon={faBuildingUser} style={{ color: "black" }} /> Department
+                <FontAwesomeIcon icon={faBuildingUser} style={{ color: "black" ,color: selected === 3? 'black' : 'white'}} /> Department
             </div>
             <div
                 onClick={() => handleClick(4)}
                 style={{
                     backgroundColor: selected === 4 ? '#ececec' : 'inherit',
                     padding: selected === 4 ? '15px' : '10px',
-                    marginRight: selected === 4 ? '-20px' : '0px'
+                    marginRight: selected === 4 ? '-20px' : '0px',
+                    color: selected === 4? 'black' : 'white'
                 }}
             >
-                <FontAwesomeIcon icon={faCalendar} style={{ color: "black" }} /> Workhour
+                <FontAwesomeIcon icon={faCalendar} style={{ color: "black" ,color: selected === 4? 'black' : 'white'}} /> Workhour
             </div>
             <div
                 onClick={() => handleClick(5)}
                 style={{
                     backgroundColor: selected === 5 ? '#ececec' : 'inherit',
                     padding: selected === 5 ? '15px' : '10px',
-                    marginRight: selected === 5 ? '-20px' : '0px'
+                    marginRight: selected === 5 ? '-20px' : '0px',
+                    color: selected === 5? 'black' : 'white'
                 }}
             >
-                <FontAwesomeIcon icon={faCalendarAlt} style={{ color: "black" }} /> WorkhourList
+                <FontAwesomeIcon icon={faCalendarAlt} style={{ color: "black" ,color: selected === 5? 'black' : 'white'}} /> WorkhourList
             </div>
                 <div style={{ position: "absolute", bottom: "20px", left: '15%' }}>
                   <Button style={{ background: "none", border: "none", color: "black" }}>

@@ -12,12 +12,7 @@ class WorkhourlineController extends Controller
         $workhourlines = Workhourline::all();
         return response()->json(['workhourlines' => $workhourlines]);
     }
-    public function getWorkhoursWithLines()
-{
-    $workhours = Workhour::all();
-    $workhourlines = Workhourline::all();
-    return response()->json(['workhours' => $workhours, 'workhourlines' => $workhourlines]);
-}
+ 
 
     public function store(Request $request)
     {

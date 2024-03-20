@@ -14,11 +14,17 @@
     font-weight: 500;
     cursor: pointer;
     margin-left: 15px;
+    border-radius: 10px
 };
 
 
+/* .main{
+    max-height: 90vh;
+    background-color: black;
+    overflow-y: auto;
+} */
 @media screen and (max-width:1400px) {
     .logo{
         /* margin-left: 2vh; */
     }
-}
+}   

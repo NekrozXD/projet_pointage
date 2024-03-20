@@ -81,7 +81,7 @@ const WorkhourForm = () => {
                 });
             }
     
-            const response = await axios.get(`http://localhost:8000/api/workhours/${createdWorkhour}`);
+        const response = await axios.get(`http://localhost:8000/api/workhours/${createdWorkhour}`);
         const existingWorkhourData = response.data;
             console.log(existingWorkhourData)
         let totalMinutes = selectedDays.reduce((total, day) => total + calculateTotalMinutes(day), 0);
@@ -123,12 +123,15 @@ const WorkhourForm = () => {
             console.log('Missing values for day:', day);
             return 0; 
         }
+
+        const totalMinutesAM = (parseInt(checkout_am.split(':')[0]) * 60 + parseInt(checkout_am.split(':')[1])) -
+            (parseInt(checkin_am.split(':')[0]) * 60 + parseInt(checkin_am.split(':')[1]));
     
-        // mcalcul an le totalhour
-        const totalMinutes = (parseInt(checkout_am.split(':')[0]) * 60 + parseInt(checkout_am.split(':')[1])) -
-            (parseInt(checkin_am.split(':')[0]) * 60 + parseInt(checkin_am.split(':')[1])) +
-            (parseInt(checkout_pm.split(':')[0]) * 60 + parseInt(checkout_pm.split(':')[1])) -
+        const totalMinutesPM = (parseInt(checkout_pm.split(':')[0]) * 60 + parseInt(checkout_pm.split(':')[1])) -
             (parseInt(checkin_pm.split(':')[0]) * 60 + parseInt(checkin_pm.split(':')[1]));
+    
+        // Total minutes for the day
+        const totalMinutes = totalMinutesAM + totalMinutesPM;
     
         return totalMinutes;
     };
@@ -231,8 +234,15 @@ const WorkhourForm = () => {
                 </>
             )}
              {isLoading && 
-             <div className="spinner-border" role="status" style={{position:'absolute', left:'50%', zIndex:'10',backgroundColor:'rgb(0,0,0,0.5)'}}><span className="visually-hidden">Loading...</span></div> }
-            <ToastContainer />
+              <div style={{ display:  'block', position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: 999 }}>
+              <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                  <div className="spinner-border text-primary" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                  </div>
+              </div>
+              </div>
+            }
+             <ToastContainer />
         </Container>
     );
 };

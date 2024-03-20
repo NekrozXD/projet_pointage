@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 // import { Toast,ToastContainer } from 'react-bootstrap';
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './workhour.css'
 
 const WorkhourForm = () => {
     const [workhourData, setWorkhourData] = useState({
@@ -152,18 +153,18 @@ const WorkhourForm = () => {
                 <FormGroup>
                     <FormLabel>Select Days:</FormLabel>
                     <Row>
-                        {['monday', 'tuesday', 'wednesday', 'thursday', 'friday','saturday'].map((day) => (
-                            <Col key={day}>
-                                <Form.Check
-                                    type="checkbox"
-                                    label={day.charAt(0).toUpperCase() + day.slice(1)}
-                                    checked={selectedDays.includes(day)}
-                                    onChange={() => handleDaySelect(day)}
-                                />
-                            </Col>
-                        ))}
-                    </Row>
-                    
+                    {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].map((day) => (
+                        <Col key={day}>
+                            <div
+                                className={`day-checkbox ${selectedDays.includes(day) ? 'checked' : ''}`}
+                                onClick={() => handleDaySelect(day)}
+                            >
+                                {day.charAt(0).toUpperCase() + day.slice(1)}
+                            </div>
+                        </Col>
+                    ))}
+                </Row>
+
                 </FormGroup>
                 <Button type="submit">Create Workhour</Button>
             </Form>

@@ -31,7 +31,7 @@ const WorkhourMapping = () => {
         <div>
             <h2>Workhour Mapping</h2>
 
-            {data.workhours.length > 0 && data.workhours.map((workhour) => (
+            {data.workhours.slice().reverse().map((workhour) => (
                 <div key={workhour.id}>
                     <Card className='mt-5'>
                         <CardHeader className='text-light' style={{ backgroundColor: '#50b64a' }}>

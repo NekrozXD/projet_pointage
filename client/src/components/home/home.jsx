@@ -97,7 +97,7 @@ export const Home = () => {
                     color: selected === '2' ? 'black' : 'white'
                 }}
             >
-                <FontAwesomeIcon icon={faUser} style={{ color: "black" ,color: selected === '2' ? 'black' : 'white'  }} /> Utilisateur
+                <FontAwesomeIcon icon={faUser} style={{ color: "black" ,color: selected === '2' ? 'black' : 'white'  }} /> User
             </div>
             <div
                 onClick={() => handleClick('3')}

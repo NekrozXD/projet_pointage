@@ -260,7 +260,7 @@ export const User = () => {
               </>
             ) : (
               <Button variant="primary" type="submit" className="mt-2">
-                Add User
+                Create user
               </Button>     
             )}
 

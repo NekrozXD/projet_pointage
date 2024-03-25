@@ -1,5 +1,3 @@
-import SocietyList from "./list.component"
-import CreateSociety from "./create.component"
 import { Row, Col,Card,Button } from "react-bootstrap"
 import Swal from "sweetalert2";
 import axios from 'axios';
@@ -204,7 +202,7 @@ export const Society = () => {
                         <input type="file" className="form-control" id="logo" onChange={changeHandler} />
                         {validationError.logo && <div className="text-danger">{validationError.logo[0]}</div>}
                     </div>
-                        <Button onClick={handleSubmit}>{isEditing ? "Update Society" : "Submit"}</Button>
+                        <Button onClick={handleSubmit}>{isEditing ? "Update society" : "Create society"}</Button>
                 </form>
             </Col>
             <Col md={9} style={{borderLeft:'1px solid grey'}}>

@@ -231,7 +231,7 @@ const WorkhourForm = () => {
                         </Row>
                     ))}
                 </Container>    
-                    <Button onClick={handleCreateWorkhourLines}>Create Workhourlines</Button>
+                    <Button onClick={handleCreateWorkhourLines}>Create workhourlines</Button>
                 </>
             )}
              {isLoading && 

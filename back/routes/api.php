@@ -7,6 +7,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\WorkhourController;
 use App\Http\Controllers\WorkhourlineController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EmployeeController;
 
 Route::get('users', [UserController::class, 'index']);
 Route::post('users', [UserController::class, 'store']);
@@ -44,3 +45,10 @@ Route::resource('societies',SocietyController::class);
 Route::get('/society',[DepartmentController::class,'society']);
 
 Route::resource('departments',DepartmentController::class);
+
+//employees
+Route::get('employees', [EmployeeController::class, 'index']);
+Route::post('employees', [EmployeeController::class, 'store']);
+Route::get('employees/{id}', [EmployeeController::class, 'show']);
+Route::put('employees/{id}', [EmployeeController::class, 'update']);
+Route::delete('employees/{id}', [EmployeeController::class, 'destroy']);

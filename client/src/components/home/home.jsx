@@ -130,11 +130,11 @@ export const Home = () => {
                     color: selected === '5'? 'black' : 'white'
                 }}
             >
-                <FontAwesomeIcon icon={faCalendarAlt} style={{ color: "black" ,color: selected === '5'? 'black' : 'white'}} /> WorkhourList
+                <FontAwesomeIcon icon={faCalendarAlt} style={{ color: "black" ,color: selected === '5'? 'black' : 'white'}} /> Workhour List
             </div>
                 <div style={{ position: "absolute", bottom: "20px", left: '15%' }}>
                   <Button style={{ background: "none", border: "none", color: "white" }}>
-                    <FontAwesomeIcon icon={faSignOutAlt} style={{ color: "red" }} /> se deconnecter
+                    <FontAwesomeIcon icon={faSignOutAlt} style={{ color: "red" }} /> Se deconnecter
                   </Button>
                 </div>
                 

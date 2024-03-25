@@ -108,7 +108,7 @@ const WorkhourForm = () => {
         });
         Swal.fire({
             title: "YA MAANN!",
-            text: "WORKHOUR created succesfully les BRADA!!",
+            text: "Workhour created succesfully !!",
             icon: "success"
           });
         toast.info('workhour lines created succesfully');
@@ -153,7 +153,7 @@ const WorkhourForm = () => {
                 <FormGroup>
                     <FormLabel>Select Days:</FormLabel>
                     <Row>
-                    {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].map((day) => (
+                    {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday','sunday'].map((day) => (
                         <Col key={day}>
                             <div
                                 className={`day-checkbox ${selectedDays.includes(day) ? 'checked' : ''}`}

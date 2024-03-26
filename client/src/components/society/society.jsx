@@ -213,7 +213,7 @@ export const Society = () => {
                     <Card.Header style={{backgroundColor:'#50b64a', padding:'10px' ,textAlign:'center',color:"white",fontWeight:'bolder'}}>Society List</Card.Header>
                         <Card.Body  style={{backgroundColor:'transparent',width:'100%'}}>
                             <div style={{width:'100%'}} className="society-table">
-                                <table style={{width:"100%" ,background:'transparent', width:'100%', textAlign:'center'}}>
+                                <table style={{width:"100%" ,background:'transparent', textAlign:'center'}}>
                                     <thead>
                                         <tr>
                                             <th>Company name</th>

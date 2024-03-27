@@ -99,7 +99,7 @@ export const Department = () => {
     };
 
     return (
-        <Container>
+       
             <Row>
                 <Col md={5}>
                 <Card style={{backgroundColor:'transparents',background:"transparent" ,border:'none'}}>
@@ -154,7 +154,8 @@ export const Department = () => {
                             <tr>
                                 <th>Coded</th>
                                 <th>Description</th>
-                                {/* <th>Society</th> */}
+                                <th>Society</th>
+                                <th>Society logo</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -163,7 +164,8 @@ export const Department = () => {
                                 <tr key={department.id}>
                                     <td>{department.coded}</td>
                                     <td>{department.description}</td>
-                                    {/* <td>{department.id_societies}</td> */}
+                                    <td>{department.society.company_name}</td>
+                                    <td><img width="50px" src={`http://localhost:8000/storage/society/logo/${department.society.logo}`} alt="Society Logo" /></td>
                                     <td>
                                         <button className="btn btn-danger" onClick={() => deleteDepartment(department.id)}>
                                             <FontAwesomeIcon icon={faTrash} />
@@ -179,9 +181,8 @@ export const Department = () => {
                     </table>
                     </Card>
                 </Col>
+                <ToastContainer />
             </Row>
-            <ToastContainer />
-        </Container>
     );
 };
 

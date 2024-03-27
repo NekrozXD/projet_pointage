@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Society } from "../society/society";
 import { User } from "../user/user";
 import WorkhourForm from "../workhour/workhour";
+import { Employee } from "../employee/Employee";
 // import CreateSociety from "../society/create.component";
 // import EditSociety from "../society/edit.component";
 import "./home.css"
@@ -133,7 +134,9 @@ export const Home = () => {
                     color: selected === '5'? 'black' : 'white'
                 }}
             >
-                <FontAwesomeIcon icon={faCalendarAlt} style={{ color: selected === '5'? 'black' : 'white'}} /> WorkhourList
+
+                <FontAwesomeIcon icon={faCalendarAlt} style={{  color: selected === '5'? 'black' : 'white'}} /> WorkhourList
+
             </div>
             <div
                 onClick={() => handleClick('6')}
@@ -144,7 +147,9 @@ export const Home = () => {
                     color: selected === '6'? 'black' : 'white'
                 }}
             >
+
                 <FontAwesomeIcon icon={faUserTie} style={{ color: selected === '6'? 'black' : 'white'}} /> Employee
+
             </div>
                 <div style={{ position: "absolute", bottom: "20px", left: '15%' }}>
                   <Button style={{ background: "none", border: "none", color: "white" }}>

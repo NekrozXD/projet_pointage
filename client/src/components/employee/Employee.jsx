@@ -6,11 +6,12 @@ import { Container, Row, Col, Form, Button, ListGroup, Card, CardHeader } from '
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
-import './employee.css';
+
+import './Employee.css';
 
 export  const Employee= () => {
     const [societies, setSocieties] = useState([]);
-    const [departments, setDepartments] = useState([]);
+    const [departments, setDepartments] = useState([]); 
     const [workhours, setWorkhours] = useState([]);
     const [employees, setEmployees] = useState([]);
     const [isEditing, setIsEditing] = useState(null);
@@ -41,6 +42,21 @@ export  const Employee= () => {
     };
 
     useEffect(() => {
+
+        const intervalId = setInterval(() => {
+            fetchEmployees();
+        }, 1000);
+    
+        return () => {
+            clearInterval(intervalId); 
+        };
+    }, []);
+    
+    const fetchEmployees = async () => {
+        try {
+            const response = await axios.get("http://localhost:8000/api/employees");
+            setEmployees(response.data.employees);
+
         fetchEmployees();
     }, []);
 
@@ -49,6 +65,7 @@ export  const Employee= () => {
             const response = await axios.get("http://localhost:8000/api/employees");
             //console.log(response.data);
             setEmployees(response.data);
+
         } catch (error) {
             console.error("Failed to fetch employees:", error);
         }
@@ -67,6 +84,71 @@ export  const Employee= () => {
         fetchSocieties();
     }, []);
 
+
+    const handleClickWorkhour = async (workhourId, workhourName, totalHours, employeeName, employeeFirstName) => {
+        try {
+            const response = await axios.get(`http://localhost:8000/api/workhourlines/${workhourId}`);
+            showWorkhourLinesModal(response.data.workhourlines, workhourName, totalHours, employeeName,employeeFirstName);
+        } catch (error) {
+            console.error('Error fetching workhour lines:', error);
+        }
+    };
+    
+    const showWorkhourLinesModal = (workhourlines, workhourName, totalHours, employeeName, employeeFirstName) => {
+        console.log("Workhour lines data:", workhourlines);
+        const tableRows = workhourlines.map((line) =>
+            `
+            <tr>
+                <td>${line.jour}</td>
+                <td>${line.checkin_am}</td>
+                <td>${line.checkout_am}</td>
+                <td>${line.checkin_pm}</td>
+                <td>${line.checkout_pm}</td>
+            </tr>
+        `).join('');
+    
+        Swal.fire({
+            title: `Workhour Lines - ${workhourName} (${employeeName} ${employeeFirstName})`,
+            html: `
+                <p>Total Hours: ${totalHours} hours</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Check-in AM</th>
+                            <th>Check-out AM</th>
+                            <th>Check-in PM</th>
+                            <th>Check-out PM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRows}
+                    </tbody>
+                </table>
+            `,
+            confirmButtonText: 'OK',
+            customClass: {
+                container: 'custom-swal-container',
+                popup: 'custom-swal-popup',
+                header: 'custom-swal-header',
+                title: 'custom-swal-title',
+                content: 'custom-swal-content',
+                closeButton: 'custom-swal-close-button',
+                icon: 'custom-swal-icon',
+                image: 'custom-swal-image',
+                input: 'custom-swal-input',
+                actions: 'custom-swal-actions',
+                confirmButton: 'custom-swal-confirm-button',
+                cancelButton: 'custom-swal-cancel-button',
+                footer: 'custom-swal-footer',
+            },
+            showConfirmButton: true,
+        });
+    };
+    
+
+    
+
     const fetchDepartments = async () => {
         try {
             const response = await axios.get("http://localhost:8000/api/departments");
@@ -76,9 +158,13 @@ export  const Employee= () => {
         }
     };
 
+    
+   
+
     useEffect(() => {
         fetchDepartments();
     }, []);
+
 
     const fetchWorkhours = async () => {
         try {
@@ -91,12 +177,21 @@ export  const Employee= () => {
 
     useEffect(() => {
         fetchWorkhours();
+
+        console.log('workhours: ', workhours)
+
     }, []);
 
     const createEmployees = async () => {
         try {
             const response = await axios.post("http://localhost:8000/api/employees", newEmployee);
+
+            setEmployees([...employees, response.data]); 
+            
+            window.location.reload()
+
             setEmployees([...employees, response.data.employee]);
+
             setNewEmployee({
                 name: "",
                 firstname: "",
@@ -104,16 +199,28 @@ export  const Employee= () => {
                 id_societies: "",
                 id_work_hours: "",
             });
+
+            // toast.success('Employee created successfully')
+            window.location.reload()
+            toast.success('Employee created successfully')
+
             toast.success('Employee created succesfully')
+
         } catch (error) {
             console.error("Failed to create employee:", error);
         }
     };
 
+
     const updateEmployee = async () => {
         try {
             await axios.put(`http://localhost:8000/api/employees/${isEditing}`, editedEmployee);
+
+            toast.info('Employee updated successfully');
+            fetchEmployees();
+
             setEmployees(employees.map((employee) => (employee.id === isEditing ? editedEmployee : employee)));
+
             setIsEditing(null);
             setEditedEmployee({
                 name: "",
@@ -127,6 +234,47 @@ export  const Employee= () => {
         }
     };
 
+    
+
+    const deleteEmployee = async (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'this action is irreversible!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await axios.delete(`http://localhost:8000/api/employees/${id}`);
+                    setEmployees(employees.filter((employee) => employee.id !== id));
+                    Swal.fire(
+                        'Deleted!',
+                        'Employee has been deleted.',
+                        'success'
+                    );
+                } catch (error) {
+                    console.error("Failed to delete employee:", error);
+                    Swal.fire(
+                        'Error!',
+                        'Failed to delete employee.',
+                        'error'
+                    );
+                }
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelled',
+                    'Employee deletion has been cancelled.',
+                    'error'
+                );
+            }
+        });
+    };
+    
+    return (
+
     const deleteEmployee = async (id) => {
         console.log("Deleting employee with ID:", id);
         try {
@@ -139,6 +287,7 @@ export  const Employee= () => {
 
     return (
         <Container>
+
             <Row>
                 <Col md={5}>
                 <Card style={{backgroundColor:'transparents',background:"transparent" ,border:'none'}}>
@@ -163,6 +312,19 @@ export  const Employee= () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="formBasicDepartmentId">
+
+                        <Form.Label>Department</Form.Label>
+                        <Form.Control as="select" name="id_departments" onChange={(e) => (isEditing ? setEditedEmployee({ ...editedEmployee, id_departments: e.target.value }) : setNewEmployee({ ...newEmployee, id_departments: e.target.value }))} value={isEditing ? editedEmployee.id_departments : newEmployee.id_departments}>
+                            <option value="">Select Department</option>
+                            {departments.map((department) => (
+                                <option key={department.id} value={department.id}>
+                                    {department.description}
+                                </option>
+                            ))}
+
+                        </Form.Control>
+                    </Form.Group>
+
                             <Form.Label>Department</Form.Label>
                             <Form.Control as="select" name="id_departments" onChange={(e) => (isEditing ? setEditedEmployee({ ...editedEmployee, id_departments: e.target.value }) : setNewEmployee({ ...newEmployee, id_departments: e.target.value }))} value={isEditing ? editedEmployee.id_departments : newEmployee.id_departments}>
                                 <option value="">Select Department</option>
@@ -173,11 +335,16 @@ export  const Employee= () => {
                                 ))}
                             </Form.Control>
                         </Form.Group>
+
                         <Form.Group controlId="formBasicSocietyId">
                             <Form.Label>Society</Form.Label>
                             <Form.Control as="select" name="id_societies" onChange={(e) => (isEditing ? setEditedEmployee({ ...editedEmployee, id_societies: e.target.value }) : setNewEmployee({ ...newEmployee, id_societies: e.target.value }))} value={isEditing ? editedEmployee.id_societies : newEmployee.id_societies}>
                                 <option value="">Select Society</option>
+
+                                {societies && societies.map((society) => (
+
                                 {societies.map((society) => (
+
                                     <option key={society.id} value={society.id}>
                                         {society.company_name}
                                     </option>
@@ -188,7 +355,11 @@ export  const Employee= () => {
                             <Form.Label>Workhour</Form.Label>
                             <Form.Control as="select" name="id_work_hours" onChange={(e) => (isEditing ? setEditedEmployee({ ...editedEmployee, id_work_hours: e.target.value }) : setNewEmployee({ ...newEmployee, id_work_hours: e.target.value }))} value={isEditing ? editedEmployee.id_work_hours : newEmployee.id_work_hours}>
                                 <option value="">Select Workhour</option>
+
+                                {workhours && workhours.map((workhour) => (
+
                                 {workhours.map((workhour) => (
+
                                     <option key={workhour.id} value={workhour.id}>
                                         {workhour.nom}
                                     </option>
@@ -215,24 +386,49 @@ export  const Employee= () => {
                             <tr>
                                 <th>Name</th>
                                 <th>Firstname</th>
+
+                                <th>workhour</th>
+                                <th>Society name</th>
+                                <th>Society Logo</th>
+                                <th>department</th>
+
                                 {/* <th>Society</th> */}
+
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                        {
-                          employees.length > 0 && (
-                            employees.map((row, key) => (
-                                <tr key={key}>
-                                    <td>{row.name}</td>
-                                    <td>{row.firstname}</td>
-                                    {/* <td>{department.id_societies}</td> */}
+
+                        {employees.length === 0 ? (
+                           <tr>
+                        <td colSpan="6" className="text-center">
+                        <div className="dot-spinner">
+                            <div className="dot-spinner__dot"></div>
+                            <div className="dot-spinner__dot"></div>
+                            <div className="dot-spinner__dot"></div>
+                            <div className="dot-spinner__dot"></div>
+                            <div className="dot-spinner__dot"></div>
+                            <div className="dot-spinner__dot"></div>
+                            <div className="dot-spinner__dot"></div>
+                            <div className="dot-spinner__dot"></div>
+                        </div>
+                        </td>
+                    </tr>
+                        ) : (
+                            employees.map((employee) => (
+                                <tr key={employee.id}>
+                                    <td>{employee.name}</td>
+                                    <td>{employee.firstname}</td>
+                                    <td><p onClick={() => handleClickWorkhour(employee.workhour.id, employee.workhour.nom, employee.workhour.total_hour, employee.name, employee.firstname)} className='workhour-emp clickable'>{employee.workhour.nom}</p></td>
+                                    <td>{employee.society.company_name}</td>
+                                    <td><img width="50px" src={`http://localhost:8000/storage/society/logo/${employee.society.logo}`} alt="Society Logo" /></td>
+                                    <td>{employee.department.description}</td>
                                     <td>
-                                        <button className="btn btn-danger" onClick={() => deleteEmployee(row.id)}>
+                                        <button className="btn btn-danger" onClick={() => deleteEmployee(employee.id)}>
                                             <FontAwesomeIcon icon={faTrash} />
                                         </button>
                                         <span>&nbsp;</span>
-                                        <button className="btn btn-primary ml-2" onClick={() => editEmployee(row)}>
+                                        <button className="btn btn-primary ml-2" onClick={() => editEmployee(employee)}>
                                             Edit
                                         </button>
                                     </td>
@@ -247,6 +443,7 @@ export  const Employee= () => {
             </Row>
             <ToastContainer />
         </Container>
+
     );
 };
 

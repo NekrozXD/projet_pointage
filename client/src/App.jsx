@@ -8,9 +8,9 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Login } from "./components/login/login";
 import { BrowserRouter as Router , Routes, Route, Link } from "react-router-dom";
 
-import EditSociety from "./components/society/edit.component";
-import SocietyList from "./components/society/list.component";
-import CreateSociety from "./components/society/create.component";
+// import EditSociety from "./components/society/edit.component";
+// import SocietyList from "./components/society/list.component";
+// import CreateSociety from "./components/society/create.component";
 // import Index from "./components";
 // import DepartmentList from "./components/department/DepartmentList";
 // import CreateDepartment from "./components/department/CreateDepartment";
@@ -51,9 +51,9 @@ function App() {
   // </Router>
   <Router>
     <Routes>
-     <Route path="/society/create" element={<CreateSociety />} />
+     {/* <Route path="/society/create" element={<CreateSociety />} />
      <Route path="/society/edit/:id" element={<EditSociety />} />
-    <Route path="/society" element={<SocietyList />} />
+    <Route path="/society" element={<SocietyList />} /> */}
     <Route path="/home" element={<Home />} />
     <Route path='/' element={<Login />} />
     </Routes> 

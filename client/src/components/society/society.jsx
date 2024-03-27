@@ -202,7 +202,7 @@ export const Society = () => {
                         <input type="file" className="form-control" id="logo" onChange={changeHandler} />
                         {validationError.logo && <div className="text-danger">{validationError.logo[0]}</div>}
                     </div>
-                        <Button onClick={handleSubmit}>{isEditing ? "Update society" : "Create society"}</Button>
+                        <Button onClick={handleSubmit}>{isEditing ? "Update Society" : "Submit"}</Button>
                 </form>
             </Col>
             <Col md={9} style={{borderLeft:'1px solid grey'}}>

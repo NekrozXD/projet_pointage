@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Container, Row, Col, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faSignOutAlt ,faUser, faBuilding, faMobileButton, faMoneyBill, faTachometer, faBuildingUser, faCalendar, faTimeline, faTimes, faStopwatch, faCalendarAlt} from "@fortawesome/free-solid-svg-icons";
+import { faUserTie,faBars, faSignOutAlt ,faUser, faBuilding, faMobileButton, faMoneyBill, faTachometer, faBuildingUser, faCalendar, faTimeline, faTimes, faStopwatch, faCalendarAlt} from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Society } from "../society/society";
 import { User } from "../user/user";
@@ -11,6 +11,7 @@ import WorkhourForm from "../workhour/workhour";
 import "./home.css"
 import { Department } from "../department/Department";
 import WorkhourMapping from "../workhour/workhourlist";
+import { Employee } from "../employee/Employee";
 
 export const Home = () => {
     const [value, setValue] = useState(localStorage.getItem('selectedItem') || '0');
@@ -36,6 +37,8 @@ export const Home = () => {
           return<WorkhourForm />
         case '5':
           return <WorkhourMapping />
+        case '6':
+          return<Employee />
         default:
           return <h1>Home</h1>;
       }
@@ -75,7 +78,7 @@ export const Home = () => {
                     color: selected === '0'? 'black' : 'white'
                 }}
             >
-                <FontAwesomeIcon icon={faTachometer} style={{ color: "black" ,color: selected === '0'? 'black' : 'white'}} /> Dashboard
+                <FontAwesomeIcon icon={faTachometer} style={{color: selected === '0'? 'black' : 'white'}} /> Dashboard
             </div>
             <div
                 onClick={() => handleClick('1')}
@@ -86,7 +89,7 @@ export const Home = () => {
                     color: selected === '1'? 'black' : 'white'
                 }}
             >
-                <FontAwesomeIcon icon={faBuilding} style={{ color: "black",color: selected === '1'? 'black' : 'white' }} /> Society
+                <FontAwesomeIcon icon={faBuilding} style={{color: selected === '1'? 'black' : 'white' }} /> Society
             </div>
             <div
                 onClick={() => handleClick('2')}
@@ -97,7 +100,7 @@ export const Home = () => {
                     color: selected === '2' ? 'black' : 'white'
                 }}
             >
-                <FontAwesomeIcon icon={faUser} style={{ color: "black" ,color: selected === '2' ? 'black' : 'white'  }} /> User
+                <FontAwesomeIcon icon={faUser} style={{color: selected === '2' ? 'black' : 'white'  }} /> Utilisateur
             </div>
             <div
                 onClick={() => handleClick('3')}
@@ -108,7 +111,7 @@ export const Home = () => {
                     color: selected === '3'? 'black' : 'white'
                 }}
             >
-                <FontAwesomeIcon icon={faBuildingUser} style={{ color: "black" ,color: selected === '3'? 'black' : 'white'}} /> Department
+                <FontAwesomeIcon icon={faBuildingUser} style={{color: selected === '3'? 'black' : 'white'}} /> Department
             </div>
             <div
                 onClick={() => handleClick('4')}
@@ -119,7 +122,7 @@ export const Home = () => {
                     color: selected === '4'? 'black' : 'white'
                 }}
             >
-                <FontAwesomeIcon icon={faCalendar} style={{ color: "black" ,color: selected === '4'? 'black' : 'white'}} /> Workhour
+                <FontAwesomeIcon icon={faCalendar} style={{color: selected === '4'? 'black' : 'white'}} /> Workhour
             </div>
             <div
                 onClick={() => handleClick('5')}
@@ -130,11 +133,22 @@ export const Home = () => {
                     color: selected === '5'? 'black' : 'white'
                 }}
             >
-                <FontAwesomeIcon icon={faCalendarAlt} style={{ color: "black" ,color: selected === '5'? 'black' : 'white'}} /> Workhour List
+                <FontAwesomeIcon icon={faCalendarAlt} style={{ color: selected === '5'? 'black' : 'white'}} /> WorkhourList
+            </div>
+            <div
+                onClick={() => handleClick('6')}
+                style={{
+                    backgroundColor: selected === '6' ? '#ececec' : 'inherit',
+                    padding: selected === '6' ? '15px' : '10px',
+                    marginRight: selected === '6' ? '-20px' : '0px',
+                    color: selected === '6'? 'black' : 'white'
+                }}
+            >
+                <FontAwesomeIcon icon={faUserTie} style={{ color: selected === '6'? 'black' : 'white'}} /> Employee
             </div>
                 <div style={{ position: "absolute", bottom: "20px", left: '15%' }}>
                   <Button style={{ background: "none", border: "none", color: "white" }}>
-                    <FontAwesomeIcon icon={faSignOutAlt} style={{ color: "red" }} /> Se deconnecter
+                    <FontAwesomeIcon icon={faSignOutAlt} style={{ color: "red" }} /> se deconnecter
                   </Button>
                 </div>
                 

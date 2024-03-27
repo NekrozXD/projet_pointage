@@ -1,7 +1,6 @@
 .logo{
     background-image: url('../../assets/logo.png');
     background-size: 100%;
- 
     height: 50px;
     width: 70px;
     background-position: 50% 50%;
@@ -14,7 +13,9 @@
     font-weight: 500;
     cursor: pointer;
     margin-left: 15px;
-    border-radius: 10px
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    width: 223px
 };
 
 

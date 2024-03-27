@@ -10,9 +10,10 @@
   import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
   import { toast, ToastContainer } from "react-toastify";
   import "react-toastify/dist/ReactToastify.css";
+  import { useTranslation } from "react-i18next";
 
 
-  export const Society = () => {
+  export const Society = ({ t }) => {
 
       const [company_name, setCompany_name] = useState("")
       const [address, setAddress] = useState("")
@@ -23,7 +24,8 @@
       const [validationError,setValidationError] = useState({})
       const [societies, setSocieties] = useState([]);
       const [isEditing, setIsEditing] = useState(null);
-    
+      // const { t } = useTranslation();
+
       const changeHandler = (event) => {
             setLogo(event.target.files[0]);
         };
@@ -173,19 +175,19 @@
           <Row>
               <Col md={3}>
                   <form onSubmit={createSociety}>
-                      <Card.Header style={{backgroundColor:'#50b64a', padding:'10px' ,textAlign:'center',color:"white",fontWeight:'bolder'}}>Create Society</Card.Header>
+                      <Card.Header style={{backgroundColor:'#50b64a', padding:'10px' ,textAlign:'center',color:"white",fontWeight:'bolder'}}>{t('Add Society')}</Card.Header>
                       <div className="mb-3">
-                          <label htmlFor="company_name" className="form-label">Company Name</label>
+                          <label htmlFor="company_name" className="form-label">{t('Company Name')}</label>
                           <input type="text" className="form-control" id="company_name" value={company_name} onChange={(e) => setCompany_name(e.target.value)} />
                           {validationError.company_name && <div className="text-danger">{validationError.company_name[0]}</div>}
                       </div>
                       <div className="mb-3">
-                          <label htmlFor="address" className="form-label">Address</label>
+                          <label htmlFor="address" className="form-label">{t('Address')}</label>
                           <input type="text" className="form-control" id="address" value={address} onChange={(e) => setAddress(e.target.value)} />
                           {validationError.address && <div className="text-danger">{validationError.address[0]}</div>}
                       </div>
                       <div className="mb-3">
-                          <label htmlFor="company_email" className="form-label">Company Email</label>
+                          <label htmlFor="company_email" className="form-label">{t('Company Email')}</label>
                           <input type="email" className="form-control" id="company_email" value={company_email} onChange={(e) => setCompany_email(e.target.value)} />
                           {validationError.company_email && <div className="text-danger">{validationError.company_email[0]}</div>}
                       </div>
@@ -204,21 +206,23 @@
                           <input type="file" className="form-control" id="logo" onChange={changeHandler} />
                           {validationError.logo && <div className="text-danger">{validationError.logo[0]}</div>}
                       </div>
-                          <Button onClick={handleSubmit}>{isEditing ? "Update Society" : "Submit"}</Button>
+                      <Button onClick={handleSubmit}>
+                        {isEditing ? t("Update") : t("Submit")}
+                      </Button>
                   </form>
               </Col>
               <Col md={9} style={{borderLeft:'1px solid grey'}}>
                   <div className="col-md-11" style={{border:'none', marginRight:'-150px'}}>
                       <Card style={{backgroundColor:'transparent',border:'none', marginRight:'-100px',maxHeight:'750px',overflowY:'auto'}}>
-                      <Card.Header style={{backgroundColor:'#50b64a', padding:'10px' ,textAlign:'center',color:"white",fontWeight:'bolder'}}>Society List</Card.Header>
+                      <Card.Header style={{backgroundColor:'#50b64a', padding:'10px' ,textAlign:'center',color:"white",fontWeight:'bolder'}}>{t('Society List')}</Card.Header>
                           <Card.Body  style={{backgroundColor:'transparent',width:'100%'}}>
                               <div style={{width:'100%'}} className="society-table">
                                   <table style={{width:"100%" ,background:'transparent', textAlign:'center'}}>
                                       <thead>
                                           <tr>
-                                              <th>Company name</th>
-                                              <th>Address</th>
-                                              <th>Company email</th>
+                                              <th>{t('Company Name')}</th>
+                                              <th>{t("Address")}</th>
+                                              <th>{t('Company Email')}</th>
                                               <th>Nif</th>
                                               <th>Stat</th>
                                               <th>Logo</th>

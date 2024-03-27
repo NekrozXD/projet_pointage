@@ -136,11 +136,11 @@ export const Department = () => {
                         </Form.Group>
                         {isEditing ? (
                             <Button variant="primary mt-2" onClick={updateDepartment}>
-                                Update department
+                                Update
                             </Button>
                         ) : (
                             <Button variant="primary mt-2" onClick={createDepartment}>
-                                Create department
+                                Create
                             </Button>
                         )}
                     </Form>

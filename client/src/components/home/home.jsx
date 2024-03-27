@@ -12,7 +12,6 @@ import { Employee } from "../employee/Employee";
 import "./home.css"
 import { Department } from "../department/Department";
 import WorkhourMapping from "../workhour/workhourlist";
-import { Employee } from "../employee/Employee";
 
 export const Home = () => {
     const [value, setValue] = useState(localStorage.getItem('selectedItem') || '0');
@@ -39,7 +38,7 @@ export const Home = () => {
         case '5':
           return <WorkhourMapping />
         case '6':
-          return<Employee />
+          return <Employee />
         default:
           return <h1>Home</h1>;
       }
@@ -134,9 +133,7 @@ export const Home = () => {
                     color: selected === '5'? 'black' : 'white'
                 }}
             >
-
                 <FontAwesomeIcon icon={faCalendarAlt} style={{  color: selected === '5'? 'black' : 'white'}} /> WorkhourList
-
             </div>
             <div
                 onClick={() => handleClick('6')}
@@ -147,9 +144,7 @@ export const Home = () => {
                     color: selected === '6'? 'black' : 'white'
                 }}
             >
-
-                <FontAwesomeIcon icon={faUserTie} style={{ color: selected === '6'? 'black' : 'white'}} /> Employee
-
+                <FontAwesomeIcon icon={faUserTie} style={{  color: selected === '6'? 'black' : 'white'}} /> Employee
             </div>
                 <div style={{ position: "absolute", bottom: "20px", left: '15%' }}>
                   <Button style={{ background: "none", border: "none", color: "white" }}>

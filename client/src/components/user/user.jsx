@@ -20,10 +20,12 @@ export const User = () => {
   const [departments, setDepartments] = useState([]);
   const [users, setUsers] = useState([]);
   const [societies, setSocieties] = useState([]);
+  const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
     fetchUsers();
-    fetchSocieties(); 
+    fetchSocieties();
+    fetchEmployees();
   }, []);
 
   const fetchUsers = async () => {
@@ -181,7 +183,14 @@ export const User = () => {
       id_societies: ""
     });
   };
-
+  const fetchEmployees = async () => {
+    try {
+        const response = await axios.get("http://localhost:8000/api/employees");
+        setEmployees(response.data.employees);
+    } catch (error) {
+        console.error("Failed to fetch employees:", error);
+    }
+};
 
   return (
     <Row>
@@ -226,9 +235,14 @@ export const User = () => {
                 <Form.Label>Role</Form.Label>
                 <Form.Control type="text" placeholder="Role" name="role" value={userData.role} onChange={handleChange} required />
               </Form.Group>
-              <Form.Group controlId="formBasicEmployeeId">
-                <Form.Label>Employee ID</Form.Label>
-                <Form.Control type="text" placeholder="Employee ID" name="id_employees" value={userData.id_employees} onChange={handleChange} required />
+              <Form.Group controlId="formBasicEmployeeID">
+                <Form.Label>Society ID</Form.Label>
+                <Form.Control as="select" name="id_employees" value={userData.id_employees} onChange={handleChange} required>
+                  <option value="">Select Employee</option>
+                  {employees.map((employee) => (
+                    <option key={employee.id} value={employee.id}>{employee.name}</option>
+                  ))}
+                </Form.Control>
               </Form.Group>
               <Form.Group controlId="formBasicSocietyId">
                 <Form.Label>Society ID</Form.Label>
@@ -260,7 +274,7 @@ export const User = () => {
               </>
             ) : (
               <Button variant="primary" type="submit" className="mt-2">
-                Create user
+                Add User
               </Button>     
             )}
 

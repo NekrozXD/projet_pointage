@@ -53,7 +53,6 @@ export  const Employee= () => {
     const fetchEmployees = async () => {
         try {
             const response = await axios.get("http://localhost:8000/api/employees");
-            console.log("Response data:", response.data); 
             setEmployees(response.data.employees);
         } catch (error) {
             console.error("Failed to fetch employees:", error);
@@ -73,6 +72,69 @@ export  const Employee= () => {
         fetchSocieties();
     }, []);
 
+    const handleClickWorkhour = async (workhourId) => {
+        try {
+            const response = await axios.get(`http://localhost:8000/api/workhourlines/${workhourId}`);
+            showWorkhourLinesModal(response.data.workhourlines);
+        } catch (error) {
+            console.error('Error fetching workhour lines:', error);
+        }
+    };
+    
+    const showWorkhourLinesModal = (workhourlines) => {
+        console.log("Workhour lines data:", workhourlines);
+        const tableRows = workhourlines.map((line) =>
+         `
+            <tr>
+                <td>${line.jour}</td>
+                <td>${line.checkin_am}</td>
+                <td>${line.checkout_am}</td>
+                <td>${line.checkin_pm}</td>
+                <td>${line.checkout_pm}</td>
+            </tr>
+        `).join('');
+    
+        Swal.fire({
+            title: 'Workhour Lines',
+            confirmButtonText:'ok',
+            customClass: {
+                container: 'custom-swal-container',
+                popup: 'custom-swal-popup',
+                header: 'custom-swal-header',
+                title: 'custom-swal-title',
+                content: 'custom-swal-content',
+                closeButton: 'custom-swal-close-button',
+                icon: 'custom-swal-icon',
+                image: 'custom-swal-image',
+                input: 'custom-swal-input',
+                actions: 'custom-swal-actions',
+                confirmButton: 'custom-swal-confirm-button',
+                cancelButton: 'custom-swal-cancel-button',
+                footer: 'custom-swal-footer',
+            },
+            html: `
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Check-in AM</th>
+                            <th>Check-out AM</th>
+                            <th>Check-in PM</th>
+                            <th>Check-out PM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRows}
+                    </tbody>
+                </table>
+            `,
+            showConfirmButton: true,
+        });
+        
+    };
+    
+
+    
     const fetchDepartments = async () => {
         try {
             const response = await axios.get("http://localhost:8000/api/departments");
@@ -286,7 +348,7 @@ export  const Employee= () => {
                                 <tr key={employee.id}>
                                     <td>{employee.name}</td>
                                     <td>{employee.firstname}</td>
-                                    <td>{employee.workhour.nom}</td>
+                                    <td><p onClick={() => handleClickWorkhour(employee.workhour.id)} className='workhour-emp clickable'>{employee.workhour.nom}</p></td>
                                     <td>{employee.society.company_name}</td>
                                     <td><img width="50px" src={`http://localhost:8000/storage/society/logo/${employee.society.logo}`} alt="Society Logo" /></td>
                                     <td>{employee.department.description}</td>

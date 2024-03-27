@@ -4,7 +4,7 @@
     --uib-color: #183153;
     position: relative;
     display: flex;
-    margin-left: 350px;
+    margin-left: 400px;
     align-items: center;
     justify-content: flex-start;
     height: var(--uib-size);
@@ -103,3 +103,34 @@
     }
   }
   
+  .custom-swal-popup {
+    width: 1000px !important; 
+    height: max-content !important; 
+}
+
+.clickable {
+  cursor: pointer;
+  color: blue;
+}
+
+.clickable:hover {
+  text-decoration: underline; 
+}
+
+.workhour-emp {
+  font-weight: bold;
+  display: inline-block;
+  animation: wave 1s infinite alternate;
+}
+
+@keyframes wave {
+  0% {
+      transform: rotate(-2deg);
+  }
+  100% {
+      transform: rotate(2deg);
+  }
+}
+
+
+

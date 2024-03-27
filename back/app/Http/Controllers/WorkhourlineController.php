@@ -12,7 +12,12 @@ class WorkhourlineController extends Controller
         $workhourlines = Workhourline::all();
         return response()->json(['workhourlines' => $workhourlines]);
     }
- 
+    public function getWorkhourLinesByWorkhourId($workhourId)
+    {
+        $workhourlines = Workhourline::where('id_work_hours', $workhourId)->get();
+        return response()->json(['workhourlines' => $workhourlines]);
+    }
+    
 
     public function store(Request $request)
     {

@@ -20,6 +20,10 @@ Route::post('departments',[DepartmentController::class,'store']);
 Route::put('departments/{id}',[DepartmentController::class,'update']);
 Route::delete('departments/{id}', [DepartmentController::class, 'destroy']);
 Route::get('workhours-with-lines', [WorkhourController::class, 'getWorkhoursWithLines']);
+Route::get('workhourlines/{workhourId}', [WorkhourlineController::class, 'getWorkhourLinesByWorkhourId']);
+
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

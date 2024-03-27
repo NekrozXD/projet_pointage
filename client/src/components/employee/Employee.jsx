@@ -6,6 +6,7 @@ import { Container, Row, Col, Form, Button, ListGroup, Card, CardHeader } from '
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+
 import './Employee.css';
 
 export  const Employee= () => {
@@ -41,6 +42,7 @@ export  const Employee= () => {
     };
 
     useEffect(() => {
+
         const intervalId = setInterval(() => {
             fetchEmployees();
         }, 1000);
@@ -54,6 +56,16 @@ export  const Employee= () => {
         try {
             const response = await axios.get("http://localhost:8000/api/employees");
             setEmployees(response.data.employees);
+
+        fetchEmployees();
+    }, []);
+
+    const fetchEmployees = async () => {
+        try {
+            const response = await axios.get("http://localhost:8000/api/employees");
+            //console.log(response.data);
+            setEmployees(response.data);
+
         } catch (error) {
             console.error("Failed to fetch employees:", error);
         }
@@ -71,6 +83,7 @@ export  const Employee= () => {
     useEffect(() => {
         fetchSocieties();
     }, []);
+
 
     const handleClickWorkhour = async (workhourId, workhourName, totalHours, employeeName, employeeFirstName) => {
         try {
@@ -135,6 +148,7 @@ export  const Employee= () => {
     
 
     
+
     const fetchDepartments = async () => {
         try {
             const response = await axios.get("http://localhost:8000/api/departments");
@@ -143,11 +157,15 @@ export  const Employee= () => {
             console.error("Error fetching departments:", error);
         }
     };
+
     
+   
+
     useEffect(() => {
         fetchDepartments();
     }, []);
-    
+
+
     const fetchWorkhours = async () => {
         try {
             const response = await axios.get("http://localhost:8000/api/workhours");
@@ -159,15 +177,21 @@ export  const Employee= () => {
 
     useEffect(() => {
         fetchWorkhours();
+
         console.log('workhours: ', workhours)
+
     }, []);
 
     const createEmployees = async () => {
         try {
             const response = await axios.post("http://localhost:8000/api/employees", newEmployee);
+
             setEmployees([...employees, response.data]); 
             
             window.location.reload()
+
+            setEmployees([...employees, response.data.employee]);
+
             setNewEmployee({
                 name: "",
                 firstname: "",
@@ -175,22 +199,28 @@ export  const Employee= () => {
                 id_societies: "",
                 id_work_hours: "",
             });
+
             // toast.success('Employee created successfully')
             window.location.reload()
             toast.success('Employee created successfully')
+
+            toast.success('Employee created succesfully')
+
         } catch (error) {
             console.error("Failed to create employee:", error);
         }
     };
-    
-    
-    
+
 
     const updateEmployee = async () => {
         try {
             await axios.put(`http://localhost:8000/api/employees/${isEditing}`, editedEmployee);
+
             toast.info('Employee updated successfully');
             fetchEmployees();
+
+            setEmployees(employees.map((employee) => (employee.id === isEditing ? editedEmployee : employee)));
+
             setIsEditing(null);
             setEditedEmployee({
                 name: "",
@@ -203,6 +233,7 @@ export  const Employee= () => {
             console.error("Failed to update employee:", error);
         }
     };
+
     
 
     const deleteEmployee = async (id) => {
@@ -243,6 +274,20 @@ export  const Employee= () => {
     };
     
     return (
+
+    const deleteEmployee = async (id) => {
+        console.log("Deleting employee with ID:", id);
+        try {
+            await axios.delete(`http://localhost:8000/api/employees/${id}`);
+            setEmployees(employees.filter((employee) => employee.id !== id));
+        } catch (error) {
+            console.error("Failed to delete employee:", error);
+        }
+    };
+
+    return (
+        <Container>
+
             <Row>
                 <Col md={5}>
                 <Card style={{backgroundColor:'transparents',background:"transparent" ,border:'none'}}>
@@ -267,6 +312,7 @@ export  const Employee= () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="formBasicDepartmentId">
+
                         <Form.Label>Department</Form.Label>
                         <Form.Control as="select" name="id_departments" onChange={(e) => (isEditing ? setEditedEmployee({ ...editedEmployee, id_departments: e.target.value }) : setNewEmployee({ ...newEmployee, id_departments: e.target.value }))} value={isEditing ? editedEmployee.id_departments : newEmployee.id_departments}>
                             <option value="">Select Department</option>
@@ -278,11 +324,27 @@ export  const Employee= () => {
 
                         </Form.Control>
                     </Form.Group>
+
+                            <Form.Label>Department</Form.Label>
+                            <Form.Control as="select" name="id_departments" onChange={(e) => (isEditing ? setEditedEmployee({ ...editedEmployee, id_departments: e.target.value }) : setNewEmployee({ ...newEmployee, id_departments: e.target.value }))} value={isEditing ? editedEmployee.id_departments : newEmployee.id_departments}>
+                                <option value="">Select Department</option>
+                                {departments.map((department) => (
+                                    <option key={department.id} value={department.id}>
+                                        {department.description}
+                                    </option>
+                                ))}
+                            </Form.Control>
+                        </Form.Group>
+
                         <Form.Group controlId="formBasicSocietyId">
                             <Form.Label>Society</Form.Label>
                             <Form.Control as="select" name="id_societies" onChange={(e) => (isEditing ? setEditedEmployee({ ...editedEmployee, id_societies: e.target.value }) : setNewEmployee({ ...newEmployee, id_societies: e.target.value }))} value={isEditing ? editedEmployee.id_societies : newEmployee.id_societies}>
                                 <option value="">Select Society</option>
+
                                 {societies && societies.map((society) => (
+
+                                {societies.map((society) => (
+
                                     <option key={society.id} value={society.id}>
                                         {society.company_name}
                                     </option>
@@ -293,7 +355,11 @@ export  const Employee= () => {
                             <Form.Label>Workhour</Form.Label>
                             <Form.Control as="select" name="id_work_hours" onChange={(e) => (isEditing ? setEditedEmployee({ ...editedEmployee, id_work_hours: e.target.value }) : setNewEmployee({ ...newEmployee, id_work_hours: e.target.value }))} value={isEditing ? editedEmployee.id_work_hours : newEmployee.id_work_hours}>
                                 <option value="">Select Workhour</option>
+
                                 {workhours && workhours.map((workhour) => (
+
+                                {workhours.map((workhour) => (
+
                                     <option key={workhour.id} value={workhour.id}>
                                         {workhour.nom}
                                     </option>
@@ -320,14 +386,19 @@ export  const Employee= () => {
                             <tr>
                                 <th>Name</th>
                                 <th>Firstname</th>
+
                                 <th>workhour</th>
                                 <th>Society name</th>
                                 <th>Society Logo</th>
                                 <th>department</th>
+
+                                {/* <th>Society</th> */}
+
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
+
                         {employees.length === 0 ? (
                            <tr>
                         <td colSpan="6" className="text-center">
@@ -363,14 +434,16 @@ export  const Employee= () => {
                                     </td>
                                 </tr>
                             ))
-                        )}
-
-                    </tbody>
+                          )
+                        }
+                        </tbody>
                     </table>
                     </Card>
                 </Col>
-                <ToastContainer />
             </Row>
+            <ToastContainer />
+        </Container>
+
     );
 };
 

@@ -1,15 +1,14 @@
-  import SocietyList from "./list.component"
-  import CreateSociety from "./create.component"
-  import { Row, Col,Card,Button } from "react-bootstrap"
-  import Swal from "sweetalert2";
-  import axios from 'axios';
-  import { useState ,useEffect} from "react";
-  import './society.css'
-  import 'bootstrap/dist/css/bootstrap.min.css';
-  import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-  import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
-  import { toast, ToastContainer } from "react-toastify";
-  import "react-toastify/dist/ReactToastify.css";
+import { Row, Col,Card,Button } from "react-bootstrap"
+import Swal from "sweetalert2";
+import axios from 'axios';
+import { useState ,useEffect} from "react";
+import './society.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 
   export const Society = () => {
@@ -168,6 +167,7 @@
           }
         };
         
+
 
       return (
           <Row>

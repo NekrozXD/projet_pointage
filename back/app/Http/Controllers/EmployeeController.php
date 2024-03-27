@@ -11,7 +11,7 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = Employee::with('workhour', 'society', 'department')->get();
-        return response()->json(['employees' => $employees]);
+        return response()->json(['employees' => $employees]);        
     }
     public function store(Request $request)
     {

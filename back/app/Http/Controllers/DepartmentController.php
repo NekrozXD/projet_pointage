@@ -10,10 +10,10 @@ class DepartmentController extends Controller
 {
     public function index()
     {
-        $departments = Department::all();
+        $departments = Department::with('society')->get();
         return response()->json(['departments' => $departments]);
     }
-
+    
 
         public function store(Request $request)
         {

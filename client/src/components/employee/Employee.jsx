@@ -6,7 +6,7 @@ import { Container, Row, Col, Form, Button, ListGroup, Card, CardHeader } from '
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
-// import './employee.css';
+import './Employee.css';
 
 export  const Employee= () => {
     const [societies, setSocieties] = useState([]);
@@ -41,9 +41,15 @@ export  const Employee= () => {
     };
 
     useEffect(() => {
-        fetchEmployees();
+        const intervalId = setInterval(() => {
+            fetchEmployees();
+        }, 1000);
+    
+        return () => {
+            clearInterval(intervalId); 
+        };
     }, []);
-
+    
     const fetchEmployees = async () => {
         try {
             const response = await axios.get("http://localhost:8000/api/employees");
@@ -121,7 +127,8 @@ export  const Employee= () => {
     const updateEmployee = async () => {
         try {
             await axios.put(`http://localhost:8000/api/employees/${isEditing}`, editedEmployee);
-            setEmployees(employees.map((employee) => (employee.id === isEditing ? editedEmployee : employee)));
+            toast.info('Employee updated successfully');
+            fetchEmployees();
             setIsEditing(null);
             setEditedEmployee({
                 name: "",
@@ -134,6 +141,7 @@ export  const Employee= () => {
             console.error("Failed to update employee:", error);
         }
     };
+    
 
     const deleteEmployee = async (id) => {
         Swal.fire({
@@ -173,7 +181,6 @@ export  const Employee= () => {
     };
     
     return (
-        <Container>
             <Row>
                 <Col md={5}>
                 <Card style={{backgroundColor:'transparents',background:"transparent" ,border:'none'}}>
@@ -252,37 +259,56 @@ export  const Employee= () => {
                                 <th>Name</th>
                                 <th>Firstname</th>
                                 <th>workhour</th>
-                                <th>Society</th>
-                                <th>departement</th>
+                                <th>Society name</th>
+                                <th>Society Logo</th>
+                                <th>department</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                        {employees.map((employee) => (
-                            <tr key={employee.id}>
-                                <td>{employee.name}</td>
-                                <td>{employee.firstname}</td>
-                                <td>{workhours.find((workhour) => workhour.id === employee.id_work_hours)?.nom}</td>
-                                <td>{societies.find((society) => society.id === employee.id_societies)?.company_name}</td>
-                                <td>{departments.find((department) => department.id === employee.id_departments)?.description}</td>
-                                <td>
-                                    <button className="btn btn-danger" onClick={() => deleteEmployee(employee.id)}>
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </button>
-                                    <span>&nbsp;</span>
-                                    <button className="btn btn-primary ml-2" onClick={() => editEmployee(employee)}>
-                                        Edit
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
+                        {employees.length === 0 ? (
+                           <tr>
+                        <td colSpan="6" className="text-center">
+                        <div className="dot-spinner">
+                            <div className="dot-spinner__dot"></div>
+                            <div className="dot-spinner__dot"></div>
+                            <div className="dot-spinner__dot"></div>
+                            <div className="dot-spinner__dot"></div>
+                            <div className="dot-spinner__dot"></div>
+                            <div className="dot-spinner__dot"></div>
+                            <div className="dot-spinner__dot"></div>
+                            <div className="dot-spinner__dot"></div>
+                        </div>
+                        </td>
+                    </tr>
+                        ) : (
+                            employees.map((employee) => (
+                                <tr key={employee.id}>
+                                    <td>{employee.name}</td>
+                                    <td>{employee.firstname}</td>
+                                    <td>{employee.workhour.nom}</td>
+                                    <td>{employee.society.company_name}</td>
+                                    <td><img width="50px" src={`http://localhost:8000/storage/society/logo/${employee.society.logo}`} alt="Society Logo" /></td>
+                                    <td>{employee.department.description}</td>
+                                    <td>
+                                        <button className="btn btn-danger" onClick={() => deleteEmployee(employee.id)}>
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </button>
+                                        <span>&nbsp;</span>
+                                        <button className="btn btn-primary ml-2" onClick={() => editEmployee(employee)}>
+                                            Edit
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
+
                     </tbody>
                     </table>
                     </Card>
                 </Col>
+                <ToastContainer />
             </Row>
-            <ToastContainer />
-        </Container>
     );
 };
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
   import SocietyList from "./list.component"
   import CreateSociety from "./create.component"
   import { Row, Col,Card,Button } from "react-bootstrap"
@@ -11,6 +12,19 @@
   import { toast, ToastContainer } from "react-toastify";
   import "react-toastify/dist/ReactToastify.css";
   import { useTranslation } from "react-i18next";
+=======
+import { Row, Col,Card,Button } from "react-bootstrap"
+import Swal from "sweetalert2";
+import axios from 'axios';
+import { useState ,useEffect} from "react";
+import './society.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+>>>>>>> 35d38bbedc4b9362ff4bfe63e05802615b5068c1
 
 
   export const Society = ({ t }) => {
@@ -170,6 +184,7 @@
           }
         };
         
+
 
       return (
           <Row>

@@ -10,9 +10,12 @@ class EmployeeController extends Controller
 {
     public function index()
     {
+
         $employees = Employee::with('workhour', 'society', 'department')->get();
         return response()->json(['employees' => $employees]);        
     }
+
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -73,4 +76,6 @@ class EmployeeController extends Controller
 
         return response()->json(['message' => 'Employee deleted successfully'], 200);
     }
+
 }
+

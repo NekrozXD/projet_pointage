@@ -1,5 +1,3 @@
-  import SocietyList from "./list.component"
-  import CreateSociety from "./create.component"
   import { Row, Col,Card,Button } from "react-bootstrap"
   import Swal from "sweetalert2";
   import axios from 'axios';

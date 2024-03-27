@@ -6,7 +6,7 @@ import { Container, Row, Col, Form, Button, ListGroup, Card, CardHeader } from '
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
-import './Employee.css';
+import './employee.css';
 
 export  const Employee= () => {
     const [societies, setSocieties] = useState([]);

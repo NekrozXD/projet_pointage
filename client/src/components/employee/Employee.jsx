@@ -72,19 +72,19 @@ export  const Employee= () => {
         fetchSocieties();
     }, []);
 
-    const handleClickWorkhour = async (workhourId) => {
+    const handleClickWorkhour = async (workhourId, workhourName, totalHours, employeeName, employeeFirstName) => {
         try {
             const response = await axios.get(`http://localhost:8000/api/workhourlines/${workhourId}`);
-            showWorkhourLinesModal(response.data.workhourlines);
+            showWorkhourLinesModal(response.data.workhourlines, workhourName, totalHours, employeeName,employeeFirstName);
         } catch (error) {
             console.error('Error fetching workhour lines:', error);
         }
     };
     
-    const showWorkhourLinesModal = (workhourlines) => {
+    const showWorkhourLinesModal = (workhourlines, workhourName, totalHours, employeeName, employeeFirstName) => {
         console.log("Workhour lines data:", workhourlines);
         const tableRows = workhourlines.map((line) =>
-         `
+            `
             <tr>
                 <td>${line.jour}</td>
                 <td>${line.checkin_am}</td>
@@ -95,24 +95,9 @@ export  const Employee= () => {
         `).join('');
     
         Swal.fire({
-            title: 'Workhour Lines',
-            confirmButtonText:'ok',
-            customClass: {
-                container: 'custom-swal-container',
-                popup: 'custom-swal-popup',
-                header: 'custom-swal-header',
-                title: 'custom-swal-title',
-                content: 'custom-swal-content',
-                closeButton: 'custom-swal-close-button',
-                icon: 'custom-swal-icon',
-                image: 'custom-swal-image',
-                input: 'custom-swal-input',
-                actions: 'custom-swal-actions',
-                confirmButton: 'custom-swal-confirm-button',
-                cancelButton: 'custom-swal-cancel-button',
-                footer: 'custom-swal-footer',
-            },
+            title: `Workhour Lines - ${workhourName} (${employeeName} ${employeeFirstName})`,
             html: `
+                <p>Total Hours: ${totalHours} hours</p>
                 <table class="table">
                     <thead>
                         <tr>
@@ -128,9 +113,24 @@ export  const Employee= () => {
                     </tbody>
                 </table>
             `,
+            confirmButtonText: 'OK',
+            customClass: {
+                container: 'custom-swal-container',
+                popup: 'custom-swal-popup',
+                header: 'custom-swal-header',
+                title: 'custom-swal-title',
+                content: 'custom-swal-content',
+                closeButton: 'custom-swal-close-button',
+                icon: 'custom-swal-icon',
+                image: 'custom-swal-image',
+                input: 'custom-swal-input',
+                actions: 'custom-swal-actions',
+                confirmButton: 'custom-swal-confirm-button',
+                cancelButton: 'custom-swal-cancel-button',
+                footer: 'custom-swal-footer',
+            },
             showConfirmButton: true,
         });
-        
     };
     
 
@@ -348,7 +348,7 @@ export  const Employee= () => {
                                 <tr key={employee.id}>
                                     <td>{employee.name}</td>
                                     <td>{employee.firstname}</td>
-                                    <td><p onClick={() => handleClickWorkhour(employee.workhour.id)} className='workhour-emp clickable'>{employee.workhour.nom}</p></td>
+                                    <td><p onClick={() => handleClickWorkhour(employee.workhour.id, employee.workhour.nom, employee.workhour.total_hour, employee.name, employee.firstname)} className='workhour-emp clickable'>{employee.workhour.nom}</p></td>
                                     <td>{employee.society.company_name}</td>
                                     <td><img width="50px" src={`http://localhost:8000/storage/society/logo/${employee.society.logo}`} alt="Society Logo" /></td>
                                     <td>{employee.department.description}</td>

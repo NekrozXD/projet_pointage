@@ -121,6 +121,7 @@
   font-weight: bold;
   display: inline-block;
   animation: wave 1s infinite alternate;
+  background-color: transparent;
 }
 
 @keyframes wave {

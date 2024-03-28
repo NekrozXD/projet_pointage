@@ -10,8 +10,10 @@ import WorkhourForm from "../workhour/workhour";
 import { Employee } from "../employee/Employee";
 import { Department } from "../department/Department";
 import WorkhourMapping from "../workhour/workhourlist";
+
 import "./home.css";
 import "../workhour/workhour.css"
+
 
 export const Home = () => {
   const { t, i18n } = useTranslation();
@@ -34,6 +36,7 @@ export const Home = () => {
     }, 2000);
   };
   
+
   const renderContent = () => {
     switch (value) {
       case '0':
@@ -54,6 +57,28 @@ export const Home = () => {
         return <h1>{t('Home')}</h1>;
     }
   };
+
+    const renderContent = () => {
+      switch (value) {
+        case '0' :
+          return <h1>Dashboard no eto angambany</h1>
+        case '1':
+          return <Society />;
+        case '2':
+          return <User />;
+          case '3':
+            return<Department />
+        case '4':
+          return<WorkhourForm />
+        case '5':
+          return <WorkhourMapping />
+        case '6':
+          return <Employee />
+        default:
+          return <h1>Home</h1>;
+      }
+    };
+
   
   return (
     <div className="home">
@@ -111,7 +136,22 @@ export const Home = () => {
                 color: selected === '2' ? 'black' : 'white'
               }}
             >
+
               <FontAwesomeIcon icon={faUser} style={{color: selected === '2' ? 'black' : 'white'  }} /><span>&nbsp;</span>{t('User')}
+
+                <FontAwesomeIcon icon={faCalendarAlt} style={{  color: selected === '5'? 'black' : 'white'}} /> WorkhourList
+            </div>
+            <div
+                onClick={() => handleClick('6')}
+                style={{
+                    backgroundColor: selected === '6' ? '#ececec' : 'inherit',
+                    padding: selected === '6' ? '15px' : '10px',
+                    marginRight: selected === '6' ? '-20px' : '0px',
+                    color: selected === '6'? 'black' : 'white'
+                }}
+            >
+                <FontAwesomeIcon icon={faUserTie} style={{  color: selected === '6'? 'black' : 'white'}} /> Employee
+
             </div>
               <div
                   onClick={() => handleClick('3')}

@@ -6,7 +6,11 @@ import { Container, Row, Col, Form, Button, ListGroup, Card, CardHeader } from '
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+
 import './employee.css';
+
+import './emp.css';
+
 
 export  const Employee= () => {
     const [societies, setSocieties] = useState([]);
@@ -41,7 +45,17 @@ export  const Employee= () => {
     };
 
     useEffect(() => {
+
        fetchEmployees()
+
+        const intervalId = setInterval(() => {
+            fetchEmployees();
+        }, 1000);
+    
+        return () => {
+            clearInterval(intervalId); 
+        };
+
     }, []);
     
     const fetchEmployees = async () => {
@@ -381,4 +395,3 @@ export  const Employee= () => {
             </Row>
     );
 };
-

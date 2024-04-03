@@ -257,7 +257,7 @@ export  const Employee= () => {
                     <Card.Header className='' style={{backgroundColor:'#50b64a',color:'white',textAlign:'center'}}>  <h2>{isEditing ? "Edit Employee" : "Create Employee"}</h2></Card.Header>                        
                     <Form>
                         <Form.Group controlId="name">
-                            <Form.Label>Name</Form.Label>
+                            <Form.Label style={{ color: 'var(--text-color)' }}>Name</Form.Label>
                             <Form.Control
                                 type="text"
                                 placeholder="Enter name"
@@ -266,7 +266,7 @@ export  const Employee= () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="firstname">
-                            <Form.Label>Firstame</Form.Label>
+                            <Form.Label style={{ color: 'var(--text-color)' }}>Firstame</Form.Label>
                             <Form.Control
                                 type="text"
                                 placeholder="Enter firstame"
@@ -275,7 +275,7 @@ export  const Employee= () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="formBasicDepartmentId">
-                        <Form.Label>Department</Form.Label>
+                        <Form.Label style={{ color: 'var(--text-color)' }}>Department</Form.Label>
                         <Form.Control as="select" name="id_departments" onChange={(e) => (isEditing ? setEditedEmployee({ ...editedEmployee, id_departments: e.target.value }) : setNewEmployee({ ...newEmployee, id_departments: e.target.value }))} value={isEditing ? editedEmployee.id_departments : newEmployee.id_departments}>
                             <option value="">Select Department</option>
                             {departments.map((department) => (
@@ -287,7 +287,7 @@ export  const Employee= () => {
                         </Form.Control>
                     </Form.Group>
                         <Form.Group controlId="formBasicSocietyId">
-                            <Form.Label>Society</Form.Label>
+                            <Form.Label style={{ color: 'var(--text-color)' }}>Society</Form.Label>
                             <Form.Control as="select" name="id_societies" onChange={(e) => (isEditing ? setEditedEmployee({ ...editedEmployee, id_societies: e.target.value }) : setNewEmployee({ ...newEmployee, id_societies: e.target.value }))} value={isEditing ? editedEmployee.id_societies : newEmployee.id_societies}>
                                 <option value="">Select Society</option>
                                 {societies && societies.map((society) => (
@@ -298,7 +298,7 @@ export  const Employee= () => {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formBasicWorkhourId">
-                            <Form.Label>Workhour</Form.Label>
+                            <Form.Label style={{ color: 'var(--text-color)' }} >Workhour</Form.Label>
                             <Form.Control as="select" name="id_work_hours" onChange={(e) => (isEditing ? setEditedEmployee({ ...editedEmployee, id_work_hours: e.target.value }) : setNewEmployee({ ...newEmployee, id_work_hours: e.target.value }))} value={isEditing ? editedEmployee.id_work_hours : newEmployee.id_work_hours}>
                                 <option value="">Select Workhour</option>
                                 {workhours && workhours.map((workhour) => (

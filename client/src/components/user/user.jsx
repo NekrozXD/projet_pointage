@@ -204,11 +204,11 @@ export const User = () => {
           )}
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="formBasicName">
-                <Form.Label>Name</Form.Label>
+                <Form.Label style={{ color: 'var(--text-color)' }} >Name</Form.Label>
                 <Form.Control type="text" placeholder="Enter name" name="name" value={userData.name} onChange={handleChange} required />
               </Form.Group>
               <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
+              <Form.Label style={{ color: 'var(--text-color)' }}>Email</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter email"
@@ -220,7 +220,7 @@ export const User = () => {
               />
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+              <Form.Label style={{ color: 'var(--text-color)' }} >Password</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Password"
@@ -232,11 +232,11 @@ export const User = () => {
               />
             </Form.Group>
               <Form.Group controlId="formBasicRole">
-                <Form.Label>Role</Form.Label>
+                <Form.Label style={{ color: 'var(--text-color)' }} >Role</Form.Label>
                 <Form.Control type="text" placeholder="Role" name="role" value={userData.role} onChange={handleChange} required />
               </Form.Group>
               <Form.Group controlId="formBasicEmployeeID">
-                <Form.Label>Society ID</Form.Label>
+                <Form.Label style={{ color: 'var(--text-color)' }}>Society ID</Form.Label>
                 <Form.Control as="select" name="id_employees" value={userData.id_employees} onChange={handleChange} required>
                   <option value="">Select Employee</option>
                   {employees.map((employee) => (
@@ -245,7 +245,7 @@ export const User = () => {
                 </Form.Control>
               </Form.Group>
               <Form.Group controlId="formBasicSocietyId">
-                <Form.Label>Society ID</Form.Label>
+                <Form.Label style={{ color: 'var(--text-color)' }}>Society ID</Form.Label>
                 <Form.Control as="select" name="id_societies" value={userData.id_societies} onChange={handleChange} required>
                   <option value="">Select Society</option>
                   {societies.map((society) => (
@@ -254,7 +254,7 @@ export const User = () => {
                 </Form.Control>
               </Form.Group>
               <Form.Group controlId="formBasicDepartmentId">
-                <Form.Label>Department</Form.Label>
+                <Form.Label style={{ color: 'var(--text-color)' }} >Department</Form.Label>
                 <Form.Control as="select" name="id_departments" value={userData.id_departments} onChange={handleChange} required>
                   <option value="">Select departement</option>
                   {departments.map((department) => (

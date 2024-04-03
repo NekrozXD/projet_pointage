@@ -3,9 +3,10 @@ import axios from 'axios';
 import { Card, CardHeader, Row, Table, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import './workhour.css'
 
 const WorkhourMapping = () => {
-    const [data, setData] = useState({ workhours: [], workhourlines: [] });
+    const [data, setData] = useState({ workhours: [], workhourlines: null }); 
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,7 +29,7 @@ const WorkhourMapping = () => {
     };
 
     return (
-        <div>
+        <div className='workhour'>
             <h2>Workhour Mapping</h2>
 
             {data.workhours.slice().reverse().map((workhour) => (
@@ -39,7 +40,7 @@ const WorkhourMapping = () => {
                             <h4>Total hour: {convertDecimalToHoursAndMinutes(workhour.total_hour)} per week</h4>
                             <h5>Delay Tolerance: {workhour.delay_tolerance} minutes</h5>
                         </CardHeader>
-                        <Table striped bordered hover style={{ textAlign: 'center' }}>
+                        <table style={{ textAlign: 'center'}}>
                             <thead>
                                 <tr>
                                     <th>Day</th>
@@ -68,7 +69,7 @@ const WorkhourMapping = () => {
                                         </tr>
                                     ))}
                             </tbody>
-                        </Table>
+                        </table>
                     </Card>
                 </div>
             ))}

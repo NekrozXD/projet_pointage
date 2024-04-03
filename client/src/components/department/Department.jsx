@@ -106,7 +106,7 @@ export const Department = () => {
                     <Card.Header className='' style={{backgroundColor:'#50b64a',color:'white',textAlign:'center'}}>  <h2>{isEditing ? "Edit Department" : "Create Department"}</h2></Card.Header>                        
                     <Form>
                         <Form.Group controlId="coded">
-                            <Form.Label>Coded</Form.Label>
+                            <Form.Label style={{ color: 'var(--text-color)' }}>Coded</Form.Label>
                             <Form.Control
                                 type="text"
                                 placeholder="Enter Coded"
@@ -115,7 +115,7 @@ export const Department = () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="description">
-                            <Form.Label>Description</Form.Label>
+                            <Form.Label style={{ color: 'var(--text-color)' }}>Description</Form.Label>
                             <Form.Control
                                 type="text"
                                 placeholder="Enter Description"
@@ -124,7 +124,7 @@ export const Department = () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="formBasicSocietyId">
-                            <Form.Label>Society</Form.Label>
+                            <Form.Label style={{ color: 'var(--text-color)' }}>Society</Form.Label>
                             <Form.Control as="select" name="id_societies" onChange={(e) => (isEditing ? setEditedDepartment({ ...editedDepartment, id_societies: e.target.value }) : setNewDepartment({ ...newDepartment, id_societies: e.target.value }))} value={isEditing ? editedDepartment.id_societies : newDepartment.id_societies}>
                                 <option value="">Select Society</option>
                                 {societies.map((society) => (

@@ -11,3 +11,17 @@
     background-color: #007bff;
     color: white;
 }
+
+.table-work td, .table-work th {
+    border-bottom: 1px solid grey;
+    color: grey;
+}
+
+.table-work table{
+    background-color: transparent;
+}
+
+.workhour td, .workhour th {
+    height: 50px;
+    border-bottom: 1px solid grey
+}

@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { I18nextProvider } from 'react-i18next';
 import App from './App';
 import i18n from './i18n'; 
-import './index.css'
+import './index.css';
+document.body.setAttribute('data-theme', 'light'); 
 
 ReactDOM.render(
   <React.StrictMode>

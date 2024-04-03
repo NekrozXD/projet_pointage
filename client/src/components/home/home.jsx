@@ -18,6 +18,16 @@ export const Home = () => {
   const [value, setValue] = useState(localStorage.getItem('selectedItem') || '0');
   const [selected, setSelected] = useState(localStorage.getItem('selectedItem') || '0');
   const [isLoading, setIsLoading] = useState(false); 
+  const [theme, setTheme] = useState('light'); 
+
+  const toggleTheme = () => {
+    const body = document.body;
+    const currentTheme = body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    body.setAttribute('data-theme', newTheme);
+    setTheme(newTheme); 
+  };
+  
 
   const handleClick = (val) => {
     setValue(val);
@@ -61,108 +71,117 @@ export const Home = () => {
         <Container>
           <div className="logo"></div>
         </Container>
+        <label className="ui-switch">
+        <input type="checkbox" onChange={toggleTheme} />
+        <div className="slider">
+          <div className="circle"></div>
+        </div>
+      </label>
+      <span>&nbsp;</span>
+      <span>&nbsp;</span>
+      <span>&nbsp;</span>
         <Button variant="outline-light" style={{ border: "1px solid black", color:'black', marginRight:'10px' }} onClick={toggleLanguage}>
           {i18n.language === 'en' ? 'FR' : 'EN'}
         </Button>
       </Navbar>
       <Container fluid className="mt-5" style={{ marginTop: "250px" }}>
         <Row>
-          <Col
-            xs={2}
-            className="sidebar"
-            style={{
-              backgroundColor: "#50b64a",
-              minHeight: "90vh",
-              marginTop: "10px",
-              borderRadius: "20px",
-              position: "relative",
-              width:'250px'
-            }}
-          >
+        <Col
+        xs={2}
+        className={`sidebar ${theme === 'dark' ? 'bg-dark text-light' : ''}`}
+        style={{
+          background: `linear-gradient(to bottom, ${theme === 'dark' ? '#222' : '#6fff66'}, ${theme === 'dark' ? '#222' : '#66FF00'}, ${theme === 'dark' ? '#111' : '#4aaf41'}, ${theme === 'dark' ? '#000' : '#49a941'}, ${theme === 'dark' ? '#000' : '#2e692a'})`,
+          minHeight: "90vh",
+          marginTop: "10px",
+          borderRadius: "20px",
+          position: "relative",
+          width: '250px'
+        }}
+      >
+
             <br></br>
             <div
               onClick={() => handleClick('0')}
               style={{
-                backgroundColor: selected === '0' ? '#ececec' : 'inherit',
+                backgroundColor: selected === '0' ? (theme === 'dark' ? '#333' : '#ececec') : 'transparent',
                 padding: selected === '0' ? '15px' : '10px',
                 marginRight: selected === '0' ? '-15px' : '0px',
-                color: selected === '0'? 'black' : 'white'
+                color: selected === '0'? (theme === 'dark' ? 'white' : 'black') : 'white'
               }}
             >
-              <FontAwesomeIcon icon={faTachometer} style={{color: selected === '0'? 'black' : 'white'}} /><span>&nbsp;</span>{t('Dashboard')}
+              <FontAwesomeIcon icon={faTachometer} style={{color: selected === '0'? (theme === 'dark' ? 'white' : 'black') : 'white'}} /><span>&nbsp;</span>{t('Dashboard')}
             </div>
             <div
               onClick={() => handleClick('1')}
               style={{
-                backgroundColor: selected === '1' ? '#ececec' : 'inherit',
+                backgroundColor: selected === '1' ? (theme === 'dark' ? '#333' : '#ececec') : 'transparent',
                 padding: selected === '1' ? '15px' : '10px',
                 marginRight: selected === '1' ? '-15px' : '0px',
-                color: selected === '1'? 'black' : 'white'
+                color: selected === '1'? (theme === 'dark' ? 'white' : 'black') : 'white'
               }}
             >
-              <FontAwesomeIcon icon={faBuilding} style={{color: selected === '1'? 'black' : 'white' }} /> <span>&nbsp;</span>{t('Society')}
+              <FontAwesomeIcon icon={faBuilding} style={{color: selected === '1'? (theme === 'dark' ? 'white' : 'black') : 'white' }} /> <span>&nbsp;</span>{t('Society')}
             </div>
             <div
               onClick={() => handleClick('2')}
               style={{
-                backgroundColor: selected === '2' ? '#ececec' : 'inherit',
+                backgroundColor: selected === '2' ? (theme === 'dark' ? '#333' : '#ececec') : 'transparent',
                 padding: selected === '2' ? '15px' : '10px',
                 marginRight: selected === '2' ? '-15px' : '0px',
-                color: selected === '2' ? 'black' : 'white'
+                color: selected === '2' ? (theme === 'dark' ? 'white' : 'black') : 'white'
               }}
             >
-              <FontAwesomeIcon icon={faUser} style={{color: selected === '2' ? 'black' : 'white'  }} /><span>&nbsp;</span>{t('User')}
+              <FontAwesomeIcon icon={faUser} style={{color: selected === '2' ? (theme === 'dark' ? 'white' : 'black') : 'white'  }} /><span>&nbsp;</span>{t('User')}
             </div>
               <div
                   onClick={() => handleClick('3')}
                   style={{
-                      backgroundColor: selected === '3' ? '#ececec' : 'inherit',
+                      backgroundColor: selected === '3' ? (theme === 'dark' ? '#333' : '#ececec') : 'transparent',
                       padding: selected === '3' ? '15px' : '10px',
                       marginRight: selected === '3' ? '-15px' : '0px',
-                      color: selected === '3'? 'black' : 'white'
+                      color: selected === '3'? (theme === 'dark' ? 'white' : 'black') : 'white'
                   }}
               >
-                  <FontAwesomeIcon icon={faBuildingUser} style={{color: selected === '3'? 'black' : 'white'}} /><span>&nbsp;</span>{t('Department')}
+                  <FontAwesomeIcon icon={faBuildingUser} style={{color: selected === '3'? (theme === 'dark' ? 'white' : 'black') : 'white'}} /><span>&nbsp;</span>{t('Department')}
                   </div>
               <div
                   onClick={() => handleClick('4')}
                   style={{
-                      backgroundColor: selected === '4' ? '#ececec' : 'inherit',
+                      backgroundColor: selected === '4' ? (theme === 'dark' ? '#333' : '#ececec') : 'transparent',
                       padding: selected === '4' ? '15px' : '10px',
                       marginRight: selected === '4' ? '-15px' : '0px',
-                      color: selected === '4'? 'black' : 'white'
+                      color: selected === '4'? (theme === 'dark' ? 'white' : 'black') : 'white'
                   }}
               >
-                  <FontAwesomeIcon icon={faCalendar} style={{color: selected === '4'? 'black' : 'white'}} /><span>&nbsp;</span>{t('Workhour')}
+                  <FontAwesomeIcon icon={faCalendar} style={{color: selected === '4'? (theme === 'dark' ? 'white' : 'black') : 'white'}} /><span>&nbsp;</span>{t('Workhour')}
               </div>
               <div
                   onClick={() => handleClick('5')}
                   style={{
-                      backgroundColor: selected === '5' ? '#ececec' : 'inherit',
+                      backgroundColor: selected === '5' ? (theme === 'dark' ? '#333' : '#ececec') : 'transparent',
                       padding: selected === '5' ? '15px' : '10px',
                       marginRight: selected === '5' ? '-15px' : '0px',
-                      color: selected === '5'? 'black' : 'white'
+                      color: selected === '5'? (theme === 'dark' ? 'white' : 'black') : 'white'
                   }}
               >
-                  <FontAwesomeIcon icon={faCalendarAlt} style={{  color: selected === '5'? 'black' : 'white'}} /> <span>&nbsp;</span>{t('Workhour List')}
+                  <FontAwesomeIcon icon={faCalendarAlt} style={{  color: selected === '5'? (theme === 'dark' ? 'white' : 'black') : 'white'}} /> <span>&nbsp;</span>{t('Workhour List')}
               </div>
               <div
                   onClick={() => handleClick('6')}
                   style={{
-                      backgroundColor: selected === '6' ? '#ececec' : 'inherit',
+                      backgroundColor: selected === '6' ? (theme === 'dark' ? '#333' : "#ececec") : 'transparent  ',
                       padding: selected === '6' ? '15px' : '10px',
                       marginRight: selected === '6' ? '-15px' : '0px',
-                      color: selected === '6'? 'black' : 'white'
+                      color: selected === '6'? (theme === 'dark' ? 'white' : 'black') : 'white'
                   }}
               >
-                  <FontAwesomeIcon icon={faCalendarAlt} style={{  color: selected === '6'? 'black' : 'white'}} /><span>&nbsp;</span>{t('Employee')}
+                  <FontAwesomeIcon icon={faCalendarAlt} style={{  color: selected === '6'? (theme === 'dark' ? 'white' : 'black') : 'white'}} /><span>&nbsp;</span>{t('Employee')}
               </div>
                   <div style={{ position: "absolute", bottom: "20px", left: '15%' }}>
                     <Button style={{ background: "none", border: "none", color: "white" }}>
                       <FontAwesomeIcon icon={faSignOutAlt} style={{ color: "red" }} /> {t('Log out')}
                      </Button> 
-                  </div>
-                  
+                  </div>      
                 </Col>
               <Col>
                 <div className=" mt-5" style={{maxHeight:'85vh',overflowY:'auto',minHeight:'85vh'}}>

@@ -82,7 +82,7 @@
     animation-delay: calc(var(--uib-speed) * -0.25);
   }
   
-  .dot-spinner__dot:nth-child(😎) {
+  .dot-spinner__dot:nth-child(8) {
     transform: rotate(315deg);
   }
   
@@ -131,9 +131,4 @@
   100% {
       transform: rotate(2deg);
   }
-}
-
-.department-table th, .department-table td{
-    border-bottom: 1px solid grey;
-    height: 50px;
 }

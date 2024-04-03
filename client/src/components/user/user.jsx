@@ -274,7 +274,7 @@ export const User = () => {
               </>
             ) : (
               <Button variant="primary" type="submit" className="mt-2">
-                Create user
+                Add User
               </Button>     
             )}
 

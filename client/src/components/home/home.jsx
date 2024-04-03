@@ -10,8 +10,10 @@ import WorkhourForm from "../workhour/workhour";
 import { Employee } from "../employee/Employee";
 import { Department } from "../department/Department";
 import WorkhourMapping from "../workhour/workhourlist";
+
 import "./home.css";
 import "../workhour/workhour.css"
+
 
 export const Home = () => {
   const { t, i18n } = useTranslation();
@@ -44,26 +46,28 @@ export const Home = () => {
     }, 2000);
   };
   
-  const renderContent = () => {
-    switch (value) {
-      case '0':
-        return <h1>{t('Dashboard')}</h1>;
-      case '1':
-        return <Society t={t} />;
-      case '2':
-        return <User t={t} />;
-      case '3':
-        return <Department t={t} />;
-      case '4':
-        return <WorkhourForm t={t} />;
-      case '5':
-        return <WorkhourMapping t={t} />;
-      case '6':
-        return <Employee t={t} />;
-      default:
-        return <h1>{t('Home')}</h1>;
-    }
-  };
+
+    const renderContent = () => {
+      switch (value) {
+        case '0' :
+          return <h1>Dashboard no eto angambany</h1>
+        case '1':
+          return <Society />;
+        case '2':
+          return <User />;
+          case '3':
+            return<Department />
+        case '4':
+          return<WorkhourForm />
+        case '5':
+          return <WorkhourMapping />
+        case '6':
+          return <Employee />
+        default:
+          return <h1>Home</h1>;
+      }
+    };
+
   
   return (
     <div className="home">
